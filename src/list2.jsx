@@ -10,15 +10,11 @@ export default class Student extends React.Component{
        }
    }
  
-   fetchData(){
+   componentDidMount(){
        var url = 'https://reqres.in/api/users'
        fetch(url)
-           .then(res=>res.json())
-           .then(json=>this.setState({students: json.data}))
-   }
- 
-   componentWillMount(){
-       this.fetchData()
+           .then(res => res.json())
+           .then(json => this.setState({ students: json.data }))
    }
  
    render(){
@@ -26,13 +22,12 @@ export default class Student extends React.Component{
        <div>
            <h1>Student Management</h1>
            <h2>Student List</h2>
-
            <ul>
                {this.state.students.map(s=>
                    <li>{s.id} {s.email}</li>
                )}
            </ul>
- 
+
        </div>
        )
    }

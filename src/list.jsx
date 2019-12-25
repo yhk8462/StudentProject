@@ -1,41 +1,37 @@
-import React from 'react'
+import React from "react";
 
-const url = 'http://localhost:27017/projects'
+const url = "http://localhost:3000/projects/";
 
 export default class list extends React.Component {
-
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            projects: [],
-
-        }
-
+            projects: []
+        };
     }
-
 
     fetchData() {
         fetch(url)
             .then(res => res.json())
-            .then(json => this.setState({ projects: json }))
+            .then(json => this.setState({projects: json}));
     }
 
-    componentWillMount() {
-        this.fetchData()
+    componentDidMount() {
+        this.fetchData();
     }
-
 
     render() {
         return (
             <div>
-                <h1 style={{fontWeight:'1'}}>Project List</h1>
+                <h1 style={{ fontWeight: "1" }}>Project List</h1>
                 <ul>
-                    {this.state.projects.map(s =>
-                        <li>{s.sId}</li>
-                    )}
+                    {this.state.projects.map(s => (
+                        <li>
+                            {s.sId} {s.sName} {s.sYear} {s.cId} {s.cName} {s.sem} {s.aName} {s.aDes} {s.aPer} {s.tech} {s.scope} {s.des} {s.company} {s.app} {s.photoURL}
+                        </li>
+                    ))}
                 </ul>
             </div>
-        )
+        );
     }
-
 }

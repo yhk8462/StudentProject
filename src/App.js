@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import List from './list.jsx';
-import List2 from './list2';
 
 function App() {
   return (
@@ -14,7 +13,6 @@ function App() {
         fontWeight:"1",
         }}>RMIT Projects</h1>
         
-      <List2></List2>
       <List></List>
     </div>
   );
