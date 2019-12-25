@@ -1,24 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import List from './list.jsx';
+import List2 from './list2';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hi <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <img src={'https://pbs.twimg.com/profile_images/870526295846694912/2J2AHIBA_400x400.jpg'} width="80px"/>
+      <h1 style={{ 
+        display: "inline-block", 
+        marginLeft:"10px",
+        fontSize:"50px",
+        fontWeight:"1",
+        }}>RMIT Projects</h1>
+        
+      <List2></List2>
+      <List></List>
     </div>
   );
 }

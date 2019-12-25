@@ -28,8 +28,6 @@ var ProjectSchema = new mongoose.Schema({
     photoURL: String,
 })
 
-//create a model Student ==> students (database collection)
-//Teacher => teachers , Course => courses
 var Project = mongoose.model('Project', ProjectSchema)
 
 app.get('/projects', function (req, res) {
@@ -45,20 +43,20 @@ app.post('/projects', function (req, res) {
 })
 
 app.delete('/projects/:id', function (req, res) {
-    Project.deleteOne({ id: req.params.id }, function (err, result) {
+    Project.deleteOne({ sId: req.params.id }, function (err, result) {
         res.send(result)
     })
 })
 
 app.put('/projects/', function (req, res) {
-    Project.findOneAndUpdate({ id: req.body.id }, { name: req.body.name }, function (err, result) {
+    Project.findOneAndUpdate({ sId: req.body.sId }, { sName: req.body.sName }, function (err, result) {
         res.send(result)
     })
 })
 
 
 app.get('/projects/search/:keyword', function (req, res) {
-    Project.find({ name: req.params.keyword }, function (err, result) {
+    Project.find({ sId: req.params.keyword }, function (err, result) {
         res.send(result)
     })
 })
