@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import List from './list.jsx';
+import Router from './Router.js';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         fontWeight:"1",
         }}>RMIT Project</h1>
         
-      <List></List>
+        <Router/>
     </div>
   );
 }
