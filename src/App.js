@@ -11,7 +11,7 @@ function App() {
         marginLeft:"10px",
         fontSize:"50px",
         fontWeight:"1",
-        }}>RMIT Projects</h1>
+        }}>RMIT Project</h1>
         
       <List></List>
     </div>
