@@ -20,10 +20,9 @@ export default class Homepage extends React.Component {
         console.log(event.target.value);
     }
 
-    updateFilter(event) {
-        this.setState({ course: event.target.value })
-        console.log(event.target.value);
-    }
+    handleChangeCourse = event => {
+        this.setState({ course: event.target.value });
+    };
 
     fetchData() {
         fetch(url)
@@ -33,49 +32,71 @@ export default class Homepage extends React.Component {
             });
     }
 
+    getUnique(arr, comp) {
+        const unique = arr
+            .map(e => e[comp])
+            .map((e, i, final) => final.indexOf(e) === i && i)
+            .filter(e => arr[e])
+            .map(e => arr[e]);
+        return unique;
+    }
+
     componentDidMount() {
         this.fetchData();
     }
 
     render() {
         //{s.sId} {s.sName} {s.sYear} {s.cId} {s.cName} {s.sem} {s.aName} {s.aDes} {s.aPer} {s.tech} {s.scope} {s.des} {s.company} {s.app} {s.photoURL}
-        
+    
         let fileredProjects = this.state.projects.filter(
             s => {
                 return s.sId.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
             }
         );
+        const uniqueCouse = this.getUnique(this.state.projects, "cId");
+        const courses = this.state.projects;
         const course = this.state.course;
-
+        const filterDropdown = courses.filter(function (result) {
+            return result.cId === course;
+        });
 
         return (
             <div>
                 <div>
-                    <SelectBox
-                        width={130}
-                        name="course_id"
-                        items={[
-                            { value: 'Course', id: 0 },
-                            { value: 'COSC2083', id: 1 },
-                            { value: 'COSC2430', id: 2 },
-                            { value: 'COSC2652', id: 3 },
-                            { value: 'COSC2429', id: 4 }
-                        ]}
-                        value={this.state.course}
-                        onChange={this.updateFilter.bind(this)}
-                    />
-
                     <MDBCol style={{ marginLeft: '10px', fontWeight: '1', fontSize: '20px' }}>
                         <div className="active-pink-3 active-pink-4 mb-4">
                             Student Id: <input className="form-control" type="text" placeholder=" Search" aria-label="Search" 
                             value={this.state.search} 
                             onChange={this.updateSearch.bind(this)} 
-                            style={{width:'150px', height:'32px'}}/>
+                            style={{width:'150px', height:'32px',}}/>
                         </div>
                     </MDBCol>
+                    <div style={{ display: 'inline-block' }}>
+                        <select
+                            className="select-box--container"
+                            value={this.state.course}
+                            onChange={this.handleChangeCourse}
+                        >
+                            {uniqueCouse.map(course => (
+                                <option value={course.cId}>
+                                    {course.cId}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
 
                 <h1 style={{ fontWeight: "1", marginLeft: '10px' }}>Project List</h1>
+
+                <div>
+                    {filterDropdown.map(s => (
+                        <div style={{ margin: "10px" }}>
+                            <p>
+                                {s.cId} {s.sId} {s.sName}
+                            </p>
+                        </div>
+                    ))}
+                </div>
 
                 <div>
                     {fileredProjects.map(s => (
