@@ -14,7 +14,6 @@ export default class Router extends React.Component {
                         <Route exact path="/" component={Homepage} />
                         <Route exact path="/details" component={Details} />
                         <Route exact path="/admin" component={Admin} />
-
                     </Switch>
                 </BrowserRouter>
             </div>

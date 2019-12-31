@@ -8,6 +8,7 @@ db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('Connected to Database'))
 
 app.use(express.json())
+
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     if (req === "OPTIONS") {
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
     }
     next();
 });
+
 const subscribersRouter = require('./routes/projects')
 app.use('/projects', subscribersRouter)
 
