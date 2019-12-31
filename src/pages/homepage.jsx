@@ -47,18 +47,14 @@ export default class Homepage extends React.Component {
 
     render() {
         //{s.sId} {s.sName} {s.sYear} {s.cId} {s.cName} {s.sem} {s.aName} {s.aDes} {s.aPer} {s.tech} {s.scope} {s.des} {s.company} {s.app} {s.photoURL}
-    
+        const uniqueCouse = this.getUnique(this.state.projects, "cId");
+        const course = this.state.course;
         let fileredProjects = this.state.projects.filter(
             s => {
-                return s.sId.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+                return s.sId.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 && s.cId.startsWith(course);
             }
         );
-        const uniqueCouse = this.getUnique(this.state.projects, "cId");
-        const courses = this.state.projects;
-        const course = this.state.course;
-        const filterDropdown = courses.filter(function (result) {
-            return result.cId === course;
-        });
+        
 
         return (
             <div>
@@ -68,17 +64,18 @@ export default class Homepage extends React.Component {
                             Student Id: <input className="form-control" type="text" placeholder=" Search" aria-label="Search" 
                             value={this.state.search} 
                             onChange={this.updateSearch.bind(this)} 
-                            style={{width:'150px', height:'32px',}}/>
+                            style={{ width: '150px', height: '30px'}}/>
                         </div>
                     </MDBCol>
-                    <div style={{ display: 'inline-block' }}>
+                    <div>
                         <select
                             className="select-box--container"
                             value={this.state.course}
                             onChange={this.handleChangeCourse}
                         >
+                            <option>COSC</option>
                             {uniqueCouse.map(course => (
-                                <option value={course.cId}>
+                                <option value={course.cId} style={{padding:'10px'}}>
                                     {course.cId}
                                 </option>
                             ))}
@@ -88,15 +85,6 @@ export default class Homepage extends React.Component {
 
                 <h1 style={{ fontWeight: "1", marginLeft: '10px' }}>Project List</h1>
 
-                <div>
-                    {filterDropdown.map(s => (
-                        <div style={{ margin: "10px" }}>
-                            <p>
-                                {s.cId} {s.sId} {s.sName}
-                            </p>
-                        </div>
-                    ))}
-                </div>
 
                 <div>
                     {fileredProjects.map(s => (
