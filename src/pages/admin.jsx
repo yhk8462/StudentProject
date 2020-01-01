@@ -51,7 +51,7 @@ export default class Homepage extends React.Component {
         obj[e.target.name] = e.target.value
         this.setState(obj)
     }
-    save() {
+    save(data) {
         if (this.state.addNew === true) {
             fetch(url, {
                 method: 'post',
@@ -63,7 +63,7 @@ export default class Homepage extends React.Component {
             }).then(json => this.fetchData())
         }
         else {
-            fetch(url+ this.state._id, {
+            fetch(url + data, {
                 method: 'put',
                 headers: {
                     'Content-Type': 'application/json',
@@ -134,27 +134,27 @@ export default class Homepage extends React.Component {
 
                 </Row>
 
-                <h1 style={{ fontWeight: "1", marginLeft: '10px' }}>Project List</h1>
+                <h1 style={{ fontWeight: "1", marginLeft: '10px'}}>Project List</h1>
                 <Row style={{marginLeft:'20px'}}>
                     <Col md={6}>
                         {filterFinal.map(s => (
                             <Card bg="light" border="primary" style={{ fontWeight: '1', marginBottom: '10px', marginTop: '20px'}}>
                                 <Card.Header className="text-center" style={{fontWeight:'bold'}}>Id: {s.sId}</Card.Header>
                                 <div style={{padding:'10px'}}>
-                                    <p><p className="text">Student Name: </p>{s.sName}</p>
-                                    <p><p className="text">Student Year: </p>{s.sYear}</p>
-                                    <p><p className="text">Semester: </p>{s.sem}</p>
-                                    <p><p className="text">Course Id: </p>{s.cId}</p>
-                                    <p><p className="text">Course Name: </p>{s.cName}</p>
-                                    <p><p className="text">Assginment Percentage: </p>{s.aPer}</p>
-                                    <p><p className="text">Assginment Description: </p>{s.aDes}</p>
-                                    <p><p className="text">Scope: </p>{s.scope}</p>
-                                    <p><p className="text">Tech used: </p>{s.tech}</p>
-                                    <p><p className="text">Description: </p>{s.des}</p>
-                                    <p><p className="text">Company: </p>{s.company}</p>
-                                    <p><p className="text">App availability: </p>{s.app}</p>
+                                    <div><p className="text">Student Name: </p>{s.sName}</div>
+                                    <div><p className="text">Student Year: </p>{s.sYear}</div>
+                                    <div><p className="text">Semester: </p>{s.sem}</div>
+                                    <div><p className="text">Course Id: </p>{s.cId}</div>
+                                    <div><p className="text">Course Name: </p>{s.cName}</div>
+                                    <div><p className="text">Assginment Percentage: </p>{s.aPer}</div>
+                                    <div><p className="text">Assginment Description: </p>{s.aDes}</div>
+                                    <div><p className="text">Scope: </p>{s.scope}</div>
+                                    <div><p className="text">Tech used: </p>{s.tech}</div>
+                                    <div><p className="text">Description: </p>{s.des}</div>
+                                    <div><p className="text">Company: </p>{s.company}</div>
+                                    <div><p className="text">App availability: </p>{s.app}</div>
                                 </div>
-                                <ButtonToolbar style={{ marginLeft: '580px', marginBottom: '10px'}}>
+                                <ButtonToolbar style={{ marginLeft: '10px', marginBottom: '10px'}}>
                                     <Button variant="warning" onClick={this.edit.bind(this, s._id, s.sId, s.sName, s.sYear, s.cId, s.cName, s.sem, s.aName, s.aDes, s.aPer, s.tech, s.scope, s.des, s.company, s.app)}>
                                         Edit
                                     </Button>
@@ -167,7 +167,7 @@ export default class Homepage extends React.Component {
                         ))}
                     </Col>
                     <Col md={6} >
-                        <h3 style={{marginTop:'20px',fontWeight:'1'}}>Edit Project</h3>
+                        <h3 style={{marginTop:'20px',fontWeight:'1',marginBottom:'20px'}}>Edit Project</h3>
                         <div >
                             id: <input type="text" id="_id" name="_id" value={this.state._id}
                                 onChange={this.handleChange.bind(this)} />
@@ -218,7 +218,7 @@ export default class Homepage extends React.Component {
 
 
                             <ButtonToolbar style={{ marginBottom: '100px' }}>
-                                <Button variant="primary" onClick={this.save.bind(this)} style={{ marginRight: '10px' }}>Update</Button>
+                                <Button variant="primary" onClick={this.save.bind(this, this.state._id)} style={{ marginRight: '10px' }}>Update</Button>
                                 <Button variant="primary" onClick={this.add.bind(this)}>Clear</Button>
                             </ButtonToolbar>
                         </div>
