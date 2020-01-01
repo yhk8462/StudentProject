@@ -45,7 +45,10 @@ router.post('/', async (req, res) => {
 })
 
 // Updating One
-router.patch('/:id', getProject, async (req, res) => {
+router.put('/:id', getProject, async (req, res) => {
+  if (req.body._id != null) {
+    res.project._id = req.body._id
+  }
   if (req.body.sId != null) {
     res.project.sId = req.body.sId
   }

@@ -6,13 +6,17 @@
   border: 1px solid #2c80ff;
   box-shadow: 0 0 0 1px #2c80ff;
 }
-
+.header {
+    padding: 10px;
+}
 .select-box--container {
-    position: absolute;
-    top: 134px;
-    left: 270px;
-    height: 35px;
+    height: 33px;
     border: 1px solid #2c80ff;
     box-shadow: 0 0 0 1px #2c80ff;
     width: 120px;
+}
+
+.text {
+  display: inline;
+  font-weight: bold;
 }
