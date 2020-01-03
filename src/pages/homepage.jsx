@@ -2,6 +2,7 @@ import React from "react";
 import "./style.css";
 import { ButtonToolbar, Button, Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+import Pagination from './paginations.jsx';
 
 const url = "http://localhost:3001/projects/";
 
@@ -14,7 +15,9 @@ export default class Homepage extends React.Component {
             course: ''
         };
     }
-
+    onChangePage(pages) {
+        this.setState({ pages: pages })
+    }
     updateSearch(event) {
         this.setState({ search: event.target.value })
         console.log(event.target.value);
@@ -61,7 +64,6 @@ export default class Homepage extends React.Component {
             }
         );
         
-        
 
         return (
             <div>
@@ -100,7 +102,6 @@ export default class Homepage extends React.Component {
                 </Row>
 
                 <h1 style={{ fontWeight: "1", marginLeft: '10px'}}>Project List</h1>
-
                 <div>
                     {filterFinal.map(s => (
                         <div style={{ display: 'inline-block', padding: '20px' }}>
