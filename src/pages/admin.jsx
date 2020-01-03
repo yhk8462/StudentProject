@@ -11,7 +11,7 @@ export default class Homepage extends React.Component {
             projects: [],
             search: '',
             course: '', _id:'',
-            sId: '', sName: '', sYear: '', cId: '', cName: '', sem: '', aName: '', aDes: '', aPer: '', tech: '', scope: '', des: '', company: '', app: '',
+            sId: '', sName: '', sYear: '', cId: '', cName: '', sem: '', aName: '', aDes: '', aPer: '', tech: '', scope: '', des: '', company: '', app: '',photoURL:'',
             addNew: true
         };
     }
@@ -46,6 +46,16 @@ export default class Homepage extends React.Component {
         this.fetchData();
     }
     //-----------------------------------------Admin functions--------------------------------------
+    delete(id) {
+        if (window.confirm('Do you want to delete?')) {
+            fetch(url + id, {
+                method: 'delete',
+            }).then(json => this.fetchData())
+
+        }
+
+    }
+
     handleChange(e) {
         var obj = {}
         obj[e.target.name] = e.target.value
@@ -59,7 +69,7 @@ export default class Homepage extends React.Component {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({ _id: this.state._id, sId: this.state.sId, sName: this.state.sName, sYear: this.state.sYear, cId: this.state.cId, cName: this.state.cName, sem: this.state.sem, aName: this.state.aName, aDes: this.state.aDes, aPer: this.state.aPer, tech: this.state.tech, scope: this.state.scope, des: this.state.des, company: this.state.company, app: this.state.app })
+                body: JSON.stringify({ sId: this.state.sId, sName: this.state.sName, sYear: this.state.sYear, cId: this.state.cId, cName: this.state.cName, sem: this.state.sem, aName: this.state.aName, aDes: this.state.aDes, aPer: this.state.aPer, tech: this.state.tech, scope: this.state.scope, des: this.state.des, company: this.state.company, app: this.state.app, photoURL: this.state.photoURL })
             }).then(json => this.fetchData())
         }
         else {
@@ -69,17 +79,17 @@ export default class Homepage extends React.Component {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({ _id: this.state._id,sId: this.state.sId, sName: this.state.sName, sYear: this.state.sYear, cId: this.state.cId, cName: this.state.cName, sem: this.state.sem, aName: this.state.aName, aDes: this.state.aDes, aPer: this.state.aPer, tech: this.state.tech, scope: this.state.scope, des: this.state.des, company: this.state.company, app: this.state.app })        
+                body: JSON.stringify({ _id: this.state._id, sId: this.state.sId, sName: this.state.sName, sYear: this.state.sYear, cId: this.state.cId, cName: this.state.cName, sem: this.state.sem, aName: this.state.aName, aDes: this.state.aDes, aPer: this.state.aPer, tech: this.state.tech, scope: this.state.scope, des: this.state.des, company: this.state.company, app: this.state.app, photoURL: this.state.photoURL })        
             }).then(json => this.fetchData())
         }
 
     }
 
-    add(_id, sId, sName, sYear, cId, cName, sem, aName, aDes, aPer, tech, scope, des, company, app) {
-        this.setState({ _id:'',sId: '', sName: '', sYear: '', cId: '', cName: '', sem: '', aName: '', aDes: '', aPer: '', tech: '', scope: '', des: '', company: '', app: '', addNew: true })
+    add( sId, sName, sYear, cId, cName, sem, aName, aDes, aPer, tech, scope, des, company, app, photoURL) {
+        this.setState({ sId: '', sName: '', sYear: '', cId: '', cName: '', sem: '', aName: '', aDes: '', aPer: '', tech: '', scope: '', des: '', company: '', app: '', photoURL:'',addNew: true })
     }
-    edit(_id,sId, sName, sYear, cId, cName, sem, aName, aDes, aPer, tech, scope, des, company, app) {
-        this.setState({ _id: _id,sId: sId, sName: sName, sYear: sYear, cId: cId, cName: cName, sem: sem, aName: aName, aDes: aDes, aPer: aPer, tech: tech, scope: scope, des: des, company: company, app: app,addNew: false })
+    edit(_id,sId, sName, sYear, cId, cName, sem, aName, aDes, aPer, tech, scope, des, company, app,photoURL) {
+        this.setState({ _id: _id,sId: sId, sName: sName, sYear: sYear, cId: cId, cName: cName, sem: sem, aName: aName, aDes: aDes, aPer: aPer, tech: tech, scope: scope, des: des, company: company, app: app,photoURL: photoURL,addNew: false })
     }
 
     render() {
@@ -96,7 +106,6 @@ export default class Homepage extends React.Component {
                 return s.sId.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 || s.sName.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
             }
         );
-
 
         return (
             <div>
@@ -134,12 +143,13 @@ export default class Homepage extends React.Component {
 
                 </Row>
 
-                <h1 style={{ fontWeight: "1", marginLeft: '10px'}}>Project List</h1>
+                <h1 style={{ fontWeight: "1", marginLeft: '40px'}}>Project List</h1>
                 <Row style={{marginLeft:'20px'}}>
                     <Col md={6}>
                         {filterFinal.map(s => (
                             <Card bg="light" border="primary" style={{ fontWeight: '1', marginBottom: '10px', marginTop: '20px'}}>
                                 <Card.Header className="text-center" style={{fontWeight:'bold'}}>Id: {s.sId}</Card.Header>
+                                <Card.Img variant="top" src={s.photoURL} style={{width:'400px',marginTop:'10px',marginLeft:'Auto',marginRight:'Auto'}}/>
                                 <div style={{padding:'10px'}}>
                                     <div><p className="text">Student Name: </p>{s.sName}</div>
                                     <div><p className="text">Student Year: </p>{s.sYear}</div>
@@ -153,12 +163,13 @@ export default class Homepage extends React.Component {
                                     <div><p className="text">Description: </p>{s.des}</div>
                                     <div><p className="text">Company: </p>{s.company}</div>
                                     <div><p className="text">App availability: </p>{s.app}</div>
+                              
                                 </div>
                                 <ButtonToolbar style={{ marginLeft: '10px', marginBottom: '10px'}}>
-                                    <Button variant="warning" onClick={this.edit.bind(this, s._id, s.sId, s.sName, s.sYear, s.cId, s.cName, s.sem, s.aName, s.aDes, s.aPer, s.tech, s.scope, s.des, s.company, s.app)}>
+                                    <Button variant="warning" onClick={this.edit.bind(this, s._id, s.sId, s.sName, s.sYear, s.cId, s.cName, s.sem, s.aName, s.aDes, s.aPer, s.tech, s.scope, s.des, s.company, s.app, s.photoURL)}>
                                         Edit
                                     </Button>
-                                    <Button variant="danger" style={{marginLeft:'10px'}}>
+                                    <Button variant="danger" style={{ marginLeft: '10px' }} onClick={this.delete.bind(this, s._id)}>
                                         Delete
                                     </Button>
                                 </ButtonToolbar>
@@ -167,13 +178,12 @@ export default class Homepage extends React.Component {
                         ))}
                     </Col>
                     <Col md={6} >
-                        <h3 style={{marginTop:'20px',fontWeight:'1',marginBottom:'20px'}}>Edit Project</h3>
-                        <div >
-                            id: <input type="text" id="_id" name="_id" value={this.state._id}
-                                onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
+                        <div className="editbox">
+                        <h3 style={{marginTop:'20px',fontWeight:'1',marginBottom:'20px'}}>Update/Add Project</h3>
+                        
+                            <form>
                             Student id: <input type="text" id="sId" name="sId" value={this.state.sId}
-                                onChange={this.handleChange.bind(this)} />
+                                    onChange={this.handleChange.bind(this)} />
                             <br></br><br></br>
                             Student Name: <input type="text" id="sName" name="sName" value={this.state.sName}
                                 onChange={this.handleChange.bind(this)} />
@@ -206,7 +216,7 @@ export default class Homepage extends React.Component {
                                 onChange={this.handleChange.bind(this)} />
                             <br></br><br></br>
                             Description: <input type="text" id="des" name="des" value={this.state.des}
-                                onChange={this.handleChange.bind(this)} />
+                                onChange={this.handleChange.bind(this)} style={{ width: '400px'}}/>
                             <br></br><br></br>
                             Company: <input type="text" id="company" name="company" value={this.state.company}
                                 onChange={this.handleChange.bind(this)} />
@@ -214,15 +224,17 @@ export default class Homepage extends React.Component {
                             App availability: <input type="text" id="app" name="app" value={this.state.app}
                                 onChange={this.handleChange.bind(this)} />
                             <br></br><br></br>
-                            
-
-
+                            Image URL: <input type="text" id="photoURL" name="photoURL" value={this.state.photoURL}
+                                onChange={this.handleChange.bind(this)} style={{ width: '500px' }}/>
+                            <br></br><br></br>
                             <ButtonToolbar style={{ marginBottom: '100px' }}>
                                 <Button variant="primary" onClick={this.save.bind(this, this.state._id)} style={{ marginRight: '10px' }}>Update</Button>
-                                <Button variant="primary" onClick={this.add.bind(this)}>Clear</Button>
+                                <Button variant="primary" onClick={this.add.bind(this)} style={{ marginRight: '10px'}} >Clear</Button>
+                                
+                                <Button variant="primary" onClick={this.save.bind(this)}>Add</Button>
                             </ButtonToolbar>
+                            </form>
                         </div>
-                        <br></br>
                     </Col>
                 </Row>
             </div>

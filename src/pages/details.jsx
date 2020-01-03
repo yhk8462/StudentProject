@@ -1,37 +1,22 @@
-import React from "react";
+import React, { Component, useState, useEffect } from 'react';
 
-const url = "http://localhost:3001/projects/";
+function ProjectDetail({ match }) {
+    useEffect(() => {
+        fetchItem()
+        console.log(match)
+    }, []);
+    const [item, setItem] = useState({});
+    const fetchItem = async () => {
+        const fetchItem = await fetch(`http://localhost:3001/projects/${match.params.id}`);
+        const item = await fetchItem.json();
+        setItem(item)
+        console.log(item);
 
-export default class Details extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            projects: []
-        };
-    }
-
-    fetchData() {
-        fetch(url)
-            .then(res => res.json())
-            .then(json => this.setState({ projects: json }));
-    }
-
-    componentDidMount() {
-        this.fetchData();
-    }
-
-    render() {
-        return (
-            <div>
-                <h1 style={{ fontWeight: "1" }}>Project List</h1>
-                <ul>
-                    {this.state.projects.map(s => (
-                        <li>
-                            {s.sId} {s.sName} {s.sYear} {s.cId} {s.cName} {s.sem} {s.aName} {s.aDes} {s.aPer} {s.tech} {s.scope} {s.des} {s.company} {s.app} {s.photoURL}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        );
-    }
+    };
+    return (
+        <div>
+            <h1>{item.sId}</h1>
+        </div>
+    )
 }
+export default ProjectDetail;

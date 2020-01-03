@@ -15,7 +15,15 @@
     box-shadow: 0 0 0 1px #2c80ff;
     width: 120px;
 }
-
+.editbox {
+    border: 1px solid #2c80ff;
+    padding: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+.projectbox {
+  border: 1px solid #2c80ff;
+}
 .text {
   display: inline;
   font-weight: bold;

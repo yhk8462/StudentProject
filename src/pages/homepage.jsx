@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 import { ButtonToolbar, Button, Container, Row, Col } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 
 const url = "http://localhost:3001/projects/";
 
@@ -107,11 +108,11 @@ export default class Homepage extends React.Component {
                             <p style={{fontWeight:'1'}}>
                                 {s.cId} {s.sId} {s.sName}
                             </p>
-                            <ButtonToolbar>
+                            <Link to={`/projects/${s._id}`}>   
                                 <Button variant="primary">
                                     Details
                                 </Button>
-                            </ButtonToolbar>
+                            </Link>
                             
                         </div>
                     ))}
