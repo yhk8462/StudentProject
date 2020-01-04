@@ -15,6 +15,7 @@ export default class Homepage extends React.Component {
             course: ''
         };
     }
+
     onChangePage(pages) {
         this.setState({ pages: pages })
     }
