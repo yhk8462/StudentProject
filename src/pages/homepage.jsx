@@ -2,9 +2,8 @@ import React from "react";
 import "./style.css";
 import { ButtonToolbar, Button, Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import Pagination from './paginations.jsx'
 
-const url = "http://localhost:3001/projects/";
+const url = "https://node-api.azurewebsites.net/projects/";
 
 export default class Homepage extends React.Component {
     constructor(props) {
@@ -29,7 +28,7 @@ export default class Homepage extends React.Component {
     };
 
     fetchData() {
-        fetch(url)
+        fetch('https://cors-anywhere.herokuapp.com/'+url)
             .then(res => res.json())
             .then(json => {
                 this.setState({ projects: json })

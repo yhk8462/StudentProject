@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import { ButtonToolbar, Button, Container, Row, Col, Card} from 'react-bootstrap'
 
-const url = "http://localhost:3001/projects/";
+const url = 'https://cors-anywhere.herokuapp.com/'+"https://node-api.azurewebsites.net/projects/";
 
 export default class Homepage extends React.Component {
     constructor(props) {

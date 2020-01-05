@@ -7,7 +7,7 @@ function ProjectDetail({ match }) {
     }, []);
     const [item, setItem] = useState({});
     const fetchItem = async () => {
-        const fetchItem = await fetch(`http://localhost:3001/projects/${match.params.id}`);
+        const fetchItem = await fetch('https://cors-anywhere.herokuapp.com/'+`https://node-api.azurewebsites.net/projects/${match.params.id}`);
         const item = await fetchItem.json();
         setItem(item)
         console.log(item);
