@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import { ButtonToolbar, Button, Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import Pagination from './paginations.jsx';
+import Pagination from './paginations.jsx'
 
 const url = "http://localhost:3001/projects/";
 
