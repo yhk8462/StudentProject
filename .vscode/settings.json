@@ -1,3 +1,9 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/6fe66a11-bab1-4410-ad2f-c6385bb87b88/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/rmit-student-projects",
+    "appService.deploySubpath": ""
 }
