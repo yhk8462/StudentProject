@@ -12,10 +12,86 @@ export default class Homepage extends React.Component {
             search: '',
             course: '', _id:'',
             sId: '', sName: '', sYear: '', cId: '', cName: '', sem: '', aName: '', aDes: '', aPer: '', tech: '', scope: '', des: '', company: '', app: '',photoURL:'',
+            error:'',
             addNew: true
         };
     }
+    validate = () => {
+        let error= '';
+        let sNameError='';
+        let sYearError = '';
+        let cIdError = '';
+        let cNameError = '';
+        let semError = '';
+        let aNameError = '';
+        let aDesError = '';
+        let aPerError = '';
+        let techError = '';
+        let scopeError = '';
+        let desError = '';
+        let companyError = '';
+        let appError = '';
+        let photoURLError = '';
 
+        if(!this.state.sId){
+            error = "*This field is empty";
+        }
+        if (!this.state.sName) {
+            sNameError = "*This field is empty";
+        }
+        if (!this.state.sYear) {
+            sYearError = "*This field is empty";
+        }
+        if (!this.state.cId) {
+            cIdError = "*This field is empty";
+        }
+        if (!this.state.cName) {
+            cNameError = "*This field is empty";
+        }
+        if (!this.state.sem) {
+            semError = "*This field is empty";
+        }
+        if (!this.state.aName) {
+            aNameError = "*This field is empty";
+        }
+        if (!this.state.aDes) {
+            aDesError = "*This field is empty";
+        }
+        if (!this.state.aPer) {
+            aPerError = "*This field is empty";
+        }
+        if (!this.state.tech) {
+            techError = "*This field is empty";
+        }
+        if (!this.state.scope) {
+            scopeError = "*This field is empty";
+        }
+        if (!this.state.des) {
+            desError = "*This field is empty";
+        }
+        if (!this.state.company) {
+            companyError = "*This field is empty";
+        }
+        if (!this.state.app) {
+            appError = "*This field is empty";
+        }
+        if (!this.state.photoURL) {
+            photoURLError = "*This field is empty";
+        }
+
+        if (error || sNameError || sYearError || cIdError || cNameError || semError || aNameError || aDesError || aPerError || techError || scopeError || desError || companyError || appError || photoURLError){
+            this.setState({ error, sNameError, sYearError, cIdError, cNameError, semError, aNameError, aDesError, aPerError, techError, scopeError, desError, companyError, appError, photoURLError});
+            return false 
+        }
+        return true
+    }
+    handleSubmit = event => {
+        event.preventDefault();
+        const isValid = this.validate();
+        if (isValid){
+            console.log(this.state);
+        }
+    }
     updateSearch(event) {
         this.setState({ search: event.target.value })
         console.log(event.target.value);
@@ -181,58 +257,94 @@ export default class Homepage extends React.Component {
                         <div className="editbox">
                         <h3 style={{marginTop:'20px',fontWeight:'1',marginBottom:'20px'}}>Update/Add Project</h3>
                         
-                            <form>
-                            Student id: <input type="text" id="sId" name="sId" value={this.state.sId}
+                            <form onSubmit={this.handleSubmit}>
+                            <div>
+                                Student id: <input type="text" id="sId" name="sId" 
+                                value={this.state.sId}
                                     onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
-                            Student Name: <input type="text" id="sName" name="sName" value={this.state.sName}
-                                onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
-                            Year: <input type="text" id="sYear" name="sYear" value={this.state.sYear}
-                                onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
-                            Course id: <input type="text" id="cId" name="cId" value={this.state.cId}
-                                onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
-                            Course Name: <input type="text" id="cName" name="cName" value={this.state.cName}
-                                onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
-                            Semester: <input type="text" id="sem" name="sem" value={this.state.sem}
-                                onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
-                            Assignment Name: <input type="text" id="aName" name="aName" value={this.state.aName}
-                                onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
-                            Assignment Description: <input type="text" id="aDes" name="aDes" value={this.state.aDes}
-                                onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
-                            Percentage: <input type="text" id="aPer" name="aPer" value={this.state.aPer}
-                                onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
-                            Technology used: <input type="text" id="tech" name="tech" value={this.state.tech}
-                                onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
-                            Scope: <input type="text" id="scope" name="scope" value={this.state.scope}
-                                onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
-                            Description: <input type="text" id="des" name="des" value={this.state.des}
-                                onChange={this.handleChange.bind(this)} style={{ width: '400px'}}/>
-                            <br></br><br></br>
-                            Company: <input type="text" id="company" name="company" value={this.state.company}
-                                onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
-                            App availability: <input type="text" id="app" name="app" value={this.state.app}
-                                onChange={this.handleChange.bind(this)} />
-                            <br></br><br></br>
-                            Image URL: <input type="text" id="photoURL" name="photoURL" value={this.state.photoURL}
-                                onChange={this.handleChange.bind(this)} style={{ width: '500px' }}/>
-                            <br></br><br></br>
-                            <ButtonToolbar style={{ marginBottom: '100px' }}>
-                                <Button variant="primary" onClick={this.save.bind(this, this.state._id)} style={{ marginRight: '10px' }}>Update</Button>
-                                <Button variant="primary" onClick={this.add.bind(this)} style={{ marginRight: '10px'}} >Clear</Button>
-                                
-                                <Button variant="primary" onClick={this.save.bind(this)}>Add</Button>
-                            </ButtonToolbar>
+                                <div style={{color:'red'}}>{this.state.error}</div>
+                                <br></br>
+
+                                Student Name: <input type="text" id="sName" name="sName" 
+                                value={this.state.sName}
+                                    onChange={this.handleChange.bind(this)} />
+                                    <div style={{ color: 'red' }}>{this.state.sNameError}</div>
+                                    <br></br>
+
+                                Year: <input type="text" id="sYear" name="sYear" 
+                                value={this.state.sYear}
+                                    onChange={this.handleChange.bind(this)} />
+                                    <div style={{ color: 'red' }}>{this.state.sYearError}</div>
+                                    <br></br>
+
+                                Course id: <input type="text" id="cId" name="cId" 
+                                value={this.state.cId}
+                                    onChange={this.handleChange.bind(this)} />
+                                    <div style={{ color: 'red' }}>{this.state.cIdError}</div>
+                                    <br></br>
+                                Course Name: <input type="text" id="cName" name="cName" 
+                                value={this.state.cName}
+                                    onChange={this.handleChange.bind(this)} />
+                                    <div style={{ color: 'red' }}>{this.state.cNameError}</div>
+                                    <br></br>
+                                Semester: <input type="text" id="sem" name="sem" 
+                                value={this.state.sem}
+                                    onChange={this.handleChange.bind(this)} />
+                                    <div style={{ color: 'red' }}>{this.state.semError}</div>
+                                    <br></br>
+                                Assignment Name: <input type="text" id="aName" name="aName" 
+                                value={this.state.aName}
+                                    onChange={this.handleChange.bind(this)} />
+                                    <div style={{ color: 'red' }}>{this.state.aNameError}</div>
+                                    <br></br>
+                                Assignment Description: <input type="text" id="aDes" name="aDes" 
+                                value={this.state.aDes}
+                                    onChange={this.handleChange.bind(this)} />
+                                    <div style={{ color: 'red' }}>{this.state.aDesError}</div>
+                                    <br></br>
+                                Percentage: <input type="text" id="aPer" name="aPer" 
+                                value={this.state.aPer}
+                                    onChange={this.handleChange.bind(this)} />
+                                    <div style={{ color: 'red' }}>{this.state.aPerError}</div>
+                                    <br></br>
+                                Technology used: <input type="text" id="tech" name="tech" 
+                                value={this.state.tech}
+                                    onChange={this.handleChange.bind(this)} />
+                                    <div style={{ color: 'red' }}>{this.state.techError}</div>
+                                    <br></br>
+                                Scope: <input type="text" id="scope" name="scope" 
+                                value={this.state.scope}
+                                    onChange={this.handleChange.bind(this)} />
+                                    <div style={{ color: 'red' }}>{this.state.scopeError}</div>
+                                    <br></br>
+                                Description: <input type="text" id="des" name="des" 
+                                value={this.state.des}
+                                    onChange={this.handleChange.bind(this)} style={{ width: '400px'}}/>
+                                    <div style={{ color: 'red' }}>{this.state.desError}</div>
+                                    <br></br>
+                                Company: <input type="text" id="company" name="company" 
+                                value={this.state.company}
+                                    onChange={this.handleChange.bind(this)} />
+                                    <div style={{ color: 'red' }}>{this.state.companyError}</div>
+                                    <br></br>
+                                App availability: <input type="text" id="app" name="app" 
+                                value={this.state.app}
+                                    onChange={this.handleChange.bind(this)} />
+                                    <div style={{ color: 'red' }}>{this.state.appError}</div>
+                                    <br></br>
+                                Image URL: <input type="text" id="photoURL" name="photoURL" 
+                                value={this.state.photoURL}
+                                    onChange={this.handleChange.bind(this)} style={{ width: '500px' }}/>
+                                    <div style={{ color: 'red' }}>{this.state.hotoURLError}</div>
+                                    <br></br>
+
+                                <ButtonToolbar style={{ marginBottom: '100px' }}>
+                                    <Button variant="primary" onClick={this.save.bind(this, this.state._id)} style={{ marginRight: '10px' }}>Update</Button>
+                                    <Button variant="primary" onClick={this.add.bind(this)} style={{ marginRight: '10px'}} >Clear</Button>
+                                    
+                                    <Button variant="primary" type="submit" onClick={this.save.bind(this)}>Add</Button>
+                                </ButtonToolbar>
+                            </div>
                             </form>
                         </div>
                     </Col>
